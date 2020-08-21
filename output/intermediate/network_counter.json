@@ -1,0 +1,15 @@
+{
+    "name": "network_counter",
+    "source": "\n\nimport random\n\n\nclass NetworkCounter:\n    def __init__(self, stop):\n        self.counter = 0\n        self.stop = stop\n        self.io_bound_state = False\n        self.already_sent_packages = []\n\n    def __iter__(self):\n        return self\n\n    def __next__(self):\n        if self.counter == self.stop:\n            print(\"Already sent these packages: \", self.already_sent_packages)\n            raise StopIteration\n        self.counter += 1\n        if random.randint(0, 3) == 1:\n            self.io_bound_state ^= 1\n        if self.io_bound_state:\n            self.already_sent_packages.append(self.counter)\n        return self.counter\n\n\nprint(\n    \"Sending these packages: \",\n    [package for package in NetworkCounter(10) if ...],\n)\n",
+    "rules": [
+        "The list should only contain the numbers when the `io_bound_state` of the network counter is `False`"
+    ],
+    "answers": [
+        "not locals()['.0'].io_bound_state"
+    ],
+    "outputs": [
+        "Already sent these packages:  [5, 6, 7, 8]\nSending these packages:  [1, 2, 3, 4, 9, 10]\n",
+        "Already sent these packages:  [5, 7, 9, 10]\nSending these packages:  [1, 2, 3, 4, 6, 8]\n",
+        "Already sent these packages:  [4, 5, 6, 7]\nSending these packages:  [1, 2, 3, 8, 9, 10]\n"
+    ]
+}
