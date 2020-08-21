@@ -8,17 +8,12 @@ import sys
 from argparse import ArgumentParser
 from contextlib import redirect_stdout
 from dataclasses import dataclass
-from enum import Enum, auto
 from io import StringIO
 from pathlib import Path
 from typing import Iterator, List, Type
 
 EXAMPLE_RUNS = 3
 METADATA_TREE = "__metadata"
-
-
-class ASTState(Enum):
-    EXTRACT = auto()
 
 
 def _evaluate_class(node: ast.ClassDef) -> Type:
